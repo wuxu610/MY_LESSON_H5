@@ -45,6 +45,7 @@
     </el-scrollbar>
 </template>
 <script setup>
+import { getArticleCatAll } from '@/http/article.js'
 const data = {
     "success": true,
     "code": 1,
@@ -165,6 +166,17 @@ const data = {
     }
 }
 
+getArticleCatAll().then(res => {
+    console.log(res);
+}).catch(err => {
+    console.log(err);
+})
+// axios.get("https;//api.jqrjq.cn//api/articleCat/all")
+//     .then(res => {
+        
+//     }).catch(err => {
+        
+//     })
 
 
 </script>

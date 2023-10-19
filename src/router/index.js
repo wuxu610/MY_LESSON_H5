@@ -3,18 +3,24 @@
 import { createRouter, createWebHashHistory } from 'vue-router';// 创建路由实例并传递 `routes` 配置const router = createRouter({// 内部提供了 history 模式的实现。为了简单起见，我们在这里使用 hash 模式。
 //创建路由 route
 
-import index  from  "@/views/index.vue"
-import login  from  "@/views/login.vue"
-import register  from  "@/views/register.vue"
+import index from "@/views/index.vue"
+import user from "@/views/users/index.vue"
+import login from "@/views/login.vue"
+import register from "@/views/register.vue"
+import retrieve from "@/views/retrieve.vue"
 const routes = [
    { path: '/', component: index },
    { path: '/login', component: login },
    { path: '/register', component: register },
+   { path: '/index', component: index },
+   { path: '/retrieve', component: retrieve },
+   { path: '/user', component: user },
 ]
 //创建路由管理 router
 const router = createRouter({// 内部提供了 history 模式的实现。为了简单起见，我们在这里使用 hash 模式。
-  history: createWebHashHistory(),
-  routes,}
-  );
- //导出路由
+   history: createWebHashHistory(),
+   routes,
+}
+);
+//导出路由
 export default router
