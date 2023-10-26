@@ -41,7 +41,7 @@
             message: '密码不能为空',
             trigger: 'blur',
         }">
-            <el-input v-model="loginForm.password"  placeholder="请输入你的密码" >
+            <el-input type="password" v-model="loginForm.password"  placeholder="请输入你的密码" >
                 <template #prefix>
                     <el-icon><Lock /></el-icon>
                 </template>
@@ -63,7 +63,8 @@
 import { reactive, ref } from 'vue'
 import { useRouter } from "vue-router";
 import { ElMessage } from 'element-plus'
-import {login} from '@/http/user.js'
+import { login } from '@/http/user.js'
+import { useUserStore } from '@/store/user'
 const formRef = ref(null)
 // import { useStore } from 'pinia'; // 导入 Pinia 相关内容
 // const store = useStore(); // 获取 Pinia store
@@ -72,6 +73,7 @@ const router = useRouter();
 //     // 根据用户是否已登录返回 true 或 false
 //     return store.state.isUserLoggedIn;
 // });
+const userStore = useUserStore();
 const url =
     'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg'
 const loginForm = reactive({
@@ -95,11 +97,15 @@ const submitForm = () => {
 const userLogin = (data) => {
     login(data).then(res => {
         if (res.success) {
+            userStore.user.token = res.data.userinfo.token;
+            userStore.user.email = res.data.userinfo.email;
+            userStore.user.userName = res.data.userinfo.userName;
+            console.log(res);
             router.push("/user")
         } else {
             ElMessage(res.msg)
         }
-    }).eatch(err => {
+    }).catch(err => {
         ElMessage.error(err)
     })
 }
